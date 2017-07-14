@@ -1,0 +1,310 @@
+vue的生存周期
+	钩子函数
+		created   实例已经创建的时候
+		beforeCompile  编译之前
+		Compiled  编译之后
+		ready     插入到文档中
+		
+		beforeDestroy  销毁之前
+		destroyed 销毁之后
+		
+销毁vue实例
+	vm.$destroy();
+网速慢的时候，网页上会有{{}}标记
+	解决方法：在css里设置属性选择器
+	[v-cloak]{
+		display:none;
+	}
+	
+vue计算属性
+	computed
+	代码:
+	<div class="box">
+		a={{a}}
+		<br />
+		b={{b}}
+	</div>
+	var vm = new Vue({
+		el:'.box',
+		data:{
+			a:1
+		},
+		computed:{
+			b:function(){
+				return this.a+1;
+			}
+		}
+	});
+声明了一个计算属性 b。提供的函数将用作属性 vm.b的 getter.vm.b的值永远取决于vm.a,当改变vm.b的值时，vm的值不会发生改变；vm.b 依赖于 vm.a，因此当 vm.a 发生改变时，依赖于 vm.b 的绑定也会更新
+v-else
+	可以用 v-else 指令给 v-if 或 v-show 添加一个 “else 块”：
+	v-else 元素必须立即跟在 v-if 或 v-show 元素的后面——否则它不能被识别
+	将 v-show 用在组件上时，因为指令的优先级 v-else 会出现问题。因此不要这样做
+		<custom-component v-show="condition"></custom-component>
+		<p v-else>这可能也是一个组件</p>
+	用另一个 v-show 替换 v-else：
+		<custom-component v-show="condition"></custom-component>
+		<p v-show="!condition">这可能也是一个组件</p>
+	这样就可以达到 v-if 的效果。
+vue实例方法
+	vm.$el ->就算元素
+	vm.$data -> 就是数据
+	vm.$mount -> 手动挂载vue程序
+	
+	vm.$options -> 获取自定义属性
+	vm.$destroy -> 销毁实例对象
+	vm.$log -> 查看现在数据的状态
+	
+
+循环：
+	重复循环（需要重复添加数据时）要在设置v-for的标签内设置：
+	track-by='$index'   
+
+数据过滤器：
+	limitBy,第一个参数是获取几个，第二个参数是从哪开始获取
+	<li v-for="item in arr | limitBy 4">
+	<li v-for="item in arr | limitBy 4 1">
+	
+	filterBy,获取指定关键词的数据
+	
+	orderBy参数可设置1或-1，1代表正序，-1代表倒序
+	
+	自定义过滤器
+		toDou，是过滤器的名字，val为过滤的内容
+		Vue.filter('toDou',function(val){
+			return val<10? '0'+val:val;
+		});
+		双向过滤器
+		Vue.filter('currencyDisplay', {
+		  // model -> view
+		  // 在更新 `<input>` 元素之前格式化值
+		  read: function(val) {
+		    return '$'+val.toFixed(2)
+		  },
+		  // view -> model
+		  // 在写回数据之前格式化值
+		  write: function(val, oldVal) {
+		    var number = +val.replace(/[^\d.]/g, '')
+		    return isNaN(number) ? 0 : parseFloat(number.toFixed(2))
+		  }
+		})
+
+自定义指令：
+	red是指令名称
+	Vue.directive('red',function(){
+		this.el.style.background = 'red';
+	})
+	元素指令
+	<blue>bbbb</blue>
+	Vue.elementDirective('blue',{
+		bind:function(){
+			this.el.style.background = 'blue';
+			this.el.style.width = '100px';
+			this.el.style.height = '100px';
+			this.el.style.display = 'block';
+		},
+		update:function(){
+			
+		},
+		unbind:function(){
+			
+		}
+	})
+
+监听数据变化：
+	firstName数据的key值，val数据的value
+	vm.$watch('firstName',function(val){})  //浅监视
+	vm.$watch('firstName',function(val){},{deep:true})	//深监视
+	
+vue过渡动画
+	动画走的是css3 transition，animate
+	
+	<div v-show="hideBox" transition="fade"></div>
+	
+	动画:
+		.fade-transition {
+			transition: 1s all ease;
+		}
+		进入(enter)
+		.fade-enter {
+			opacity: 0;
+		}
+		离开(leave)
+		.fade-leave {
+			opacity: 0;
+		}
+
+vue组件
+	组件：一个大对象
+		定义一个组件：
+		1.全局组件
+		var a = Vue.extend({
+			template:'<h3>欢迎来到Vue</h3>'
+		})
+		'hello'页面的自定义标签，a是组件构造器的名字
+		Vue.component('hello',a)
+		组件里放数据，data必须是一个函数的形式，函数必须返回一个json对象
+		
+		Vue.component('des',{
+			data:function(){
+				return {
+					msg:'去年下半年，共享单车出现在北京街头时，中新网曾对其进行了体验式调查。近日，中新网又对其进行了走访调查，发现共享单车在早期被曝的部分问题仍存，比如，定位不精准。'
+				}
+			},
+			template:'<p>{{msg}}</p>'
+		})
+		2.局部组件(组件内部的组件)
+		var vm = new Vue({
+			el:'.box',
+			data:{
+				bSign:true
+			},
+			components:{
+				hello:a
+			}
+		});
+		
+		var vm = new Vue({
+			el:'.box',
+			data:{
+				bSign:true
+			},
+			components:{
+				hello:Hello,
+				des:{
+					data:function(){
+						return {
+							msg:'去年下半年，共享单车出现在北京街头时，中新网曾对其进行了体验式调查。近日，中新网又对其进行了走访调查，发现共享单车在早期被曝的部分问题仍存，比如，定位不精准。'
+						}
+					},
+					template:'<p>{{msg}}</p>'
+				}
+			}
+		});
+vue模板：
+	元素代码：
+	<div class="box">
+		<des></des>
+	</div>
+	模板代码：
+	<template id="hello">
+		<h3>欢迎来到Vue</h3>
+		<ul>
+			<li v-for="val in arr">
+				{{val}}
+			</li>
+		</ul>
+	</template>
+	调用方法：
+	var vm = new Vue({
+		el:'.box',
+		data:{},
+		components:{
+			'des':{
+				data:function(){
+					return {
+						arr:['傻叼','筛掉2','傻叼3']
+					}
+				},
+				template:'#hello'
+			}
+		}
+	});
+	
+动态组件：
+	更改component绑定的is属性来切换组件显示的内容，比如a='bbb'时显示的是b组件
+	<component :is="a"></component>
+	var vm = new Vue({
+		el:'.box',
+		data:{
+			a:'aaa'
+		},
+		components:{
+			'aaa':{
+				template:'<h2>我是a组件，你可以叫我a</h2>'
+			},
+			'bbb':{
+				template:'<h2>我是b组件，你可以叫我b</h2>'
+			}
+		}
+	});	
+	
+父子组件：
+	vue默认情况下，子组件没法访问父组件的数据
+	父子组件之间数据的传递：
+		1。子级获取父级的数据
+		通过prop来传递，子组件绑定父组件的数据，然后在子组件内通过props获取数据，
+		<bbb :m="msg2"></bbb>          //props:['m'],
+		<bbb :my-aaa="msg2"></bbb>	   //props:['myAaa'],如果html属性名有'-'，那么要在js中使用驼峰命名
+		props:{'m':String}      //当属性m不是string类型时报错，相当于一个格式验证
+		2.父级获取子级的数据
+			子组件主动把数据，发送到父级。
+			
+			vm.$emit(数据名称,数据)   发送数据
+			父级用v-on来接受数据
+
+slot：
+	作用：占个位置
+	
+vue ->SPA应用，单页应用
+	vue-resouce  交互
+	vue-router   路由
+		view:
+			<a v-link="{path:'/news'}">新闻</a>  路由链接
+			
+			<router-view></router-view>     展示内容
+		js:
+			//准备一个根组件
+			var App = Vue.extend();
+			
+			//准备home和news组件
+			var Home = Vue.extend({
+				template:'<h3>我是主页</h3>'
+			});
+			var News = Vue.extend({
+				template:'<h3>我是新闻页</h3>'
+			});
+			
+			//准备路由
+			var router = new VueRouter();
+			
+			//关联
+			router.map({
+				'home':{
+					component:Home
+				},
+				'news':{
+					component:News
+				}
+			});
+			
+			//启动组件
+			router.start(App,'#box');
+			
+			//跳转
+			router.redirect({
+				'/':'home'
+			});
+	路由嵌套
+		subRoutes:{
+			'login':{
+				component:{
+					template:'我是登录信息'
+				}
+			},
+			'reg':{
+				component:{
+					template:'我是注册信息'	
+				}
+			}
+		}
+	其它信息：
+		/detail/:id/age/:age
+		{{$route.params | json}}	当前路由的参数
+		
+		{{$route.path}}             当前路径
+		
+		{{$route.query | json}}     数据
+		
+vue-loader:
+	其它loader-> css-loader、url-loader、html-loader

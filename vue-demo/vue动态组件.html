@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+<div class="box">
+	<input type="button" @click="a='aaa'" value="a组件" />
+	<input type="button" @click="a='bbb'" value="b组件" />
+	<component :is="a"></component>
+</div>
+<script>
+	var vm = new Vue({
+		el:'.box',
+		data:{
+			a:'aaa'
+		},
+		components:{
+			'aaa':{
+				template:'<h2>我是a组件，你可以叫我a</h2>'
+			},
+			'bbb':{
+				template:'<h2>我是b组件，你可以叫我b</h2>'
+			}
+		}
+	});
+</script>
+</body>
+</html>

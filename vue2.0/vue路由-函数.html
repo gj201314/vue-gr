@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="vue-router.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//组件
+	    let Home = {
+	    	template:'<h3>我是主页</h3>'
+	    };
+	    let User = {
+	    	template:`
+	    		<div>
+	    			<h3>我是用户信息</h3>
+	    			<ul>
+	    				<li>
+	    					<router-link to="/user/username">用户信息</router-link>
+	    				</li>
+	    			</ul>
+	    			<div>
+	    				<router-view></router-view>
+	    			</div>
+	    		</div>
+	    	`
+	    };
+	    let UserDetail = {
+	    	template:'<p>我是郭杰</p>'
+	    }
+	    //配置路由
+	    const routes = [
+	    	{path:'/home',component:Home},
+	    	{
+	    		path:'/user',
+	    		component:User,
+	    		children:[
+	    			{
+	    				path:'username',
+	    				component:UserDetail
+	    			}
+	    		]
+	    	},
+	    	{path:'*',redirect:'/home'}  //404
+	    ];
+		window.onload = function(){
+			//生成路由实例
+			let router = new VueRouter({
+				routes
+			});
+			//挂载到vue实例上
+			new Vue({
+				el:'#box',
+				data:{
+					msg:'welcome vue2.0'
+				},
+				router,
+				methods:{
+					push(){
+						router.push({path:'/home'});
+					},
+					replace(){
+						router.replace({path:'/user'});
+					}
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<input type="button" value="添加一个路由" @click="push" />
+		<input type="button" value="替换一个路由" @click="replace" />
+		<div>
+			<router-link to="/home">主页</router-link>
+			<router-link to="/user">用户</router-link>
+		</div>
+		<div>
+			<router-view></router-view>
+		</div>
+	</div>
+</body>
+</html>

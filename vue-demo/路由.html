@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="box">
+	<ul>
+		<li>
+			<a v-link="{path:'/home'}">主页</a>
+		</li>
+		<li>
+			<a v-link="{path:'/news'}">新闻</a>
+		</li>
+	</ul>
+	<div>
+		<router-view></router-view>
+	</div>
+</div>
+<script>
+	//准备一个根组件
+	var App = Vue.extend();
+	
+	//准备home和news组件
+	var Home = Vue.extend({
+		template:'<h3>我是主页</h3>'
+	});
+	var News = Vue.extend({
+		template:'<h3>我是新闻页</h3>'
+	});
+	
+	//准备路由
+	var router = new VueRouter();
+	
+	//关联
+	router.map({
+		'home':{
+			component:Home
+		},
+		'news':{
+			component:News
+		}
+	});
+	
+	//启动组件
+	router.start(App,'#box');
+	
+	//跳转
+	router.redirect({
+		'/':'home'
+	});
+</script>
+</body>
+</html>

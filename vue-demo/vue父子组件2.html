@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+<div class="box">
+	<aaa></aaa>
+</div>
+<template id="aaa">
+	<h1>11111{{msg}}</h1>
+	<bbb :m="msg2"></bbb>
+</template>
+<script>
+	var vm = new Vue({
+		el:'.box',
+		data:{
+		},
+		components:{
+			'aaa':{
+				data:function(){
+					return {
+						msg:',同时我也是父组件',
+						msg2:'子组件',
+					}
+				},
+				template:'#aaa',
+				components:{
+					'bbb':{
+						props:['m'], 
+						template:'<h3>我是b组件，你可以叫我{{m}}</h3>'
+					}
+				}
+			},
+			
+		}
+	});
+</script>
+</body>
+</html>

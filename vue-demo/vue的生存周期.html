@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="js/vue.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var vm = new Vue({
+				el:'.box',
+				data:{
+					msg:'well'
+				},
+				created:function(){
+					alert('实例已经创建成功了')
+				},
+				beforeCompile:function(){
+					alert('编译之前')
+				}
+			})
+		};
+	</script>
+</head>
+<body>
+<div class="box" >
+	{{msg}}
+</div>
+</body>
+</html>

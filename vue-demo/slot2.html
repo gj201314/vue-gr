@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+<div class="box">
+	<aaa>
+		<ul slot="ul-slot">
+			<li>1111111</li>
+			<li>1111111</li>
+			<li>1111111</li>
+			<li>1111111</li>
+		</ul>
+		<ol slot="ol-slot">
+			<li>1111111</li>
+			<li>1111111</li>
+			<li>1111111</li>
+			<li>1111111</li>
+		</ol>
+	</aaa>
+	<hr />
+	<aaa></aaa>
+</div>
+<template id="section">
+	<h2>XXXXXXXXXX</h2>
+	<slot name="ol-slot">这是默认的情况</slot>
+	<slot name="ul-slot">这是默认的情况2</slot>
+	<p>hello world vue</p>
+</template>
+<script>
+	var vm = new Vue({
+		el:'.box',
+		data:{
+		},
+		components:{
+			'aaa':{
+				template:'#section'
+			},
+			
+		}
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="vue-router.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//组件
+	    let Home = {
+	    	template:'<h3>我是主页</h3>'
+	    };
+	    let News = {
+	    	template:'<h3>我是新闻</h3>'
+	    };
+	    //配置路由
+	    const routes = [
+	    	{path:'/home',component:Home},
+	    	{path:'/news',component:News},
+	    	{path:'*',redirect:'/home'}
+	    ];
+		window.onload = function(){
+			//生成路由实例
+			let router = new VueRouter({
+				routes
+			});
+			//挂载到vue实例上
+			new Vue({
+				el:'#box',
+				data:{
+					msg:'welcome vue2.0'
+				},
+				router
+			})
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<div>
+			<router-link to="/home">主页</router-link>
+			<router-link to="/news">新闻</router-link>
+		</div>
+		<div>
+			<router-view></router-view>
+		</div>
+	</div>
+</body>
+</html>

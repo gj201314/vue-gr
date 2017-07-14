@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let Home = {
+			template:'#aaa'
+		};
+		Vue.component('Home',Home);
+		window.onload = function(){
+			new Vue({
+				el:'#box',
+				data:{
+					msg:'welcome vue2.0'
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+	<template id="aaa">
+		<div>
+			<h3>这是组件</h3><strong>我是加粗标签</strong>
+		</div>
+	</template>
+	<div id="box">
+		<Home></Home>
+		{{msg}}
+	</div>
+</body>
+</html>

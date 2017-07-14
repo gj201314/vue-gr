@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			new Vue({
+				el:'#box',
+				data:{
+					msg:'welcome vue2.0'
+				},
+				methods:{
+					update(){
+						this.msg = '大家好'
+					},
+					destroy(){
+						this.$destroy();
+					}
+				},
+				beforeCreate(){
+					console.log('组件刚刚被创建')
+				},
+				created(){
+					console.log('实例已经创建完成了')
+				},
+				beforeMount(){
+					console.log('模板编译之前')
+				},
+				mounted(){
+					console.log('模板编译完成')
+				},
+				beforeUpdate(){
+					console.log('组件更新之前');
+				},
+				updated(){
+					console.log('组件更新完成')
+				},
+				beforeDestroy(){
+					console.log('组件销毁之前')
+				},
+				destroyed(){
+					console.log('组件销毁之后')
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<input type="button" @click="update" value="更新数据" />
+		<input type="button" @click="destroy" value="销毁组件" />
+		{{msg}}
+	</div>
+</body>
+</html>

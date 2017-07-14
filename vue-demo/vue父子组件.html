@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+<div class="box">
+	<aaa></aaa>
+</div>
+<script>
+	var vm = new Vue({
+		el:'.box',
+		data:{
+		},
+		components:{
+			'aaa':{
+				template:'<h2>我是a组件，你可以叫我a</h2><bbb></bbb>',
+				components:{
+					'bbb':{
+						template:'<h3>我是b组件，你可以叫我b</h3>'
+					}
+				}
+			},
+			
+		}
+	});
+</script>
+</body>
+</html>

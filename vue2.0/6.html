@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		Vue.config.keyCodes.enter =13;
+		window.onload = function(){
+			new Vue({ 
+				el:'#box',
+				data:{},
+				methods:{
+					change(){
+						alert('改变了')
+					}
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<input type="text" value="" @keyup.enter="change" />
+	</div>
+</body>
+</html>

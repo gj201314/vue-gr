@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="js/vue.js"></script>
+	<script>
+		window.onload = function(){
+			var vm = new Vue({
+				el:'#box',
+				data:{
+					'msg':'欢迎来到vue!',
+					'arr':['apply','pay','join','component'],
+					'json':{'name':'json','sex':'15:01'}
+				}
+			})
+		};
+	</script>
+</head>
+<body>
+<div id="box">
+	<input type="text" v-model="msg" />
+	<p>{{msg}}</p>
+	<p>{{arr}}</p>
+	<p>{{json}}</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+<div class="box">
+	<hello></hello>
+	<des></des>
+</div>
+<script type="text/javascript">
+	var Hello = Vue.extend({
+		data:function(){
+			return {
+				msg:'欢迎来到Vue'
+			}
+		},
+		methods:{
+			_alert:function(){
+				alert(111)
+			}
+		},
+		template:'<h3 @click="_alert">{{msg}}</h3>'
+	})
+	var vm = new Vue({
+		el:'.box',
+		data:{
+			bSign:true
+		},
+		components:{
+			hello:Hello,
+			des:{
+				data:function(){
+					return {
+						msg:'去年下半年，共享单车出现在北京街头时，中新网曾对其进行了体验式调查。近日，中新网又对其进行了走访调查，发现共享单车在早期被曝的部分问题仍存，比如，定位不精准。'
+					}
+				},
+				template:'<p>{{msg}}</p>'
+			}
+		}
+	});
+</script>
+</body>
+</html>
