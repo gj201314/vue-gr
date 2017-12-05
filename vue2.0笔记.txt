@@ -299,4 +299,5 @@ vuex:集中式管理数据
 	
 	cnpm install vuex -D
 
-	vue-vuex-store --store例子
+	vue-vuex-store    最简单的 Store（将所有的代码放到store.js里）
+	vue-vuex-store2   拆分的Store（将代码拆分放到store文件夹里）
