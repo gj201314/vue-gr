@@ -1,4 +1,4 @@
-1.0到2.0后的变化:
+﻿1.0到2.0后的变化:
 1.在每个组件模板，不在支持片段代码
 	组件中模板:
 		之前:
@@ -298,3 +298,5 @@ vuex:集中式管理数据
 		mapGetters    获取数据
 	
 	cnpm install vuex -D
+
+	vue-vuex-store --store例子
